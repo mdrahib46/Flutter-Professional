@@ -65,7 +65,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SettingsScreen(count: count),
+                    builder:
+                        (context) => SettingsScreen(
+                          count: count,
+                          updateCount: () {
+                            count++;
+                            setState(() {});
+                          },
+                        ),
                   ),
                 );
                 setState(() {});

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key, required this.count});
+  SettingsScreen({super.key, required this.count, required this.updateCount});
 
-  final int count;
+  int count;
+  final VoidCallback updateCount;
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
@@ -15,7 +16,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       appBar: AppBar(title: Text('Setting Screen')),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          widget.count++;
+          widget.updateCount();
+          setState(() {});
+        },
         child: Icon(Icons.add),
       ),
       body: Center(
