@@ -1,86 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_for_professional/settings_screen.dart';
+import 'package:flutter_for_professional/counter_controller.dart';
+import 'package:flutter_for_professional/homeScreen.dart';
 
 void main() {
   runApp(FlutterForProfessional());
 }
 
-class FlutterForProfessional extends StatelessWidget {
-  FlutterForProfessional({super.key});
-
+class FlutterForProfessional extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(home: HomeScreen());
-  }
+  State<FlutterForProfessional> createState() => _FlutterForProfessionalState();
 }
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  bool _isEnable = false;
-
+class _FlutterForProfessionalState extends State<FlutterForProfessional> {
   int count = 0;
 
+  void increment() {
+    count++;
+    setState(() {});
+  }
+
+  ThemeMode themeMode = ThemeMode.light;
+
+  void toggleTheme() {
+    themeMode = themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Intro Project')),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          count++;
-          setState(() {});
-        },
-        child: Icon(Icons.add),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Dark Mode',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                Switch(
-                  value: _isEnable,
-                  onChanged: (bool value) {
-                    _isEnable = value;
-                    setState(() {});
-                  },
-                ),
-              ],
-            ),
-            Text(
-              '$count',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder:
-                        (context) => SettingsScreen(
-                          count: count,
-                          updateCount: () {
-                            count++;
-                            setState(() {});
-                          },
-                        ),
-                  ),
-                );
-                setState(() {});
-              },
-              child: Text('Settings'),
-            ),
-          ],
-        ),
+    return CounterController(
+      count: count,
+      increment: increment,
+      child: MaterialApp(
+        themeMode: themeMode,
+        darkTheme: ThemeData.dark(),
+        theme: ThemeData.light(),
+
+        home: HomeScreen(),
       ),
     );
   }
