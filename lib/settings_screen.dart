@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_for_professional/counter_controller.dart';
 
 class SettingsScreen extends StatefulWidget {
-  SettingsScreen({super.key, required this.count, required this.updateCount});
-
-  int count;
-  final VoidCallback updateCount;
-
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
@@ -13,13 +9,12 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
+    final CounterController? counterController = CounterController.of(context);
     return Scaffold(
       appBar: AppBar(title: Text('Setting Screen')),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          widget.count++;
-          widget.updateCount();
-          setState(() {});
+          counterController?.increment();
         },
         child: Icon(Icons.add),
       ),
@@ -27,7 +22,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: Column(
           children: [
             Text(
-              '${widget.count}',
+              '${counterController?.count}',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
             ),
           ],
