@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_for_professional/counter_controller.dart';
 import 'package:flutter_for_professional/homeScreen.dart';
 
 void main() {
@@ -28,16 +27,12 @@ class _FlutterForProfessionalState extends State<FlutterForProfessional> {
 
   @override
   Widget build(BuildContext context) {
-    return CounterController(
-      count: count,
-      increment: increment,
-      child: MaterialApp(
-        themeMode: themeMode,
-        darkTheme: ThemeData.dark(),
-        theme: ThemeData.light(),
+    return MaterialApp(
+      themeMode: themeMode,
+      darkTheme: ThemeData.dark(),
+      theme: ThemeData.light(),
 
-        home: HomeScreen(),
-      ),
+      home: HomeScreen(),
     );
   }
 }
