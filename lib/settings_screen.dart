@@ -1,34 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_for_professional/counter_controller.dart';
+import 'package:provider/provider.dart';
 
-final CounterController counterController = CounterController();
+// final CounterController counterController = CounterController();
 
-class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+class SettingsScreen extends StatelessWidget {
+  SettingsScreen({super.key});
 
-  @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
+    // final counterController = context.read<CounterController>();
     return Scaffold(
       appBar: AppBar(title: Text('Setting Screen')),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          counterController.increment();
+          // counterController.increment();
+          // Provider.of<CounterController>(context, listen: false).increment();
+          context.read<CounterController>().increment();
         },
+
         child: Icon(Icons.add),
       ),
       body: Center(
         child: Column(
           children: [
-            ListenableBuilder(
-              listenable: counterController,
-              builder: (context, child) {
+            Consumer<CounterController>(
+              builder: (context, counter, child) {
                 return Text(
-                  '${counterController.count}',
+                  '${counter.count}',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                 );
               },

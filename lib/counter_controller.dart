@@ -24,6 +24,7 @@ import 'package:flutter/material.dart';
 // }
 
 class CounterController extends ChangeNotifier {
+  // final CounterController counterController = CounterController();
   int count = 0;
 
   void increment() {
