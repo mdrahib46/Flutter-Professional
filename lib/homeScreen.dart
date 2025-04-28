@@ -1,33 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_for_professional/counter_controller.dart';
 import 'package:flutter_for_professional/settings_screen.dart';
+import 'package:provider/provider.dart';
 
-final CounterController counterController = CounterController();
+// final CounterController counterController = CounterController();
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   bool _isEnable = false;
-
-  // int count = 0;
-  //
-  // void _increment() {
-  //   count++;
-  //   setState(() {});
-  // }
 
   @override
   Widget build(BuildContext context) {
+    // final counterController = context.read<CounterController>().count;
     return Scaffold(
       appBar: AppBar(title: Text('Intro Project')),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          counterController.increment();
+          //there are two way
+          // counterController.increment();
+          // Provider.of<CounterController>(context, listen: false).increment;
+          context.read<CounterController>().increment();
         },
         child: Icon(Icons.add),
       ),
@@ -45,18 +38,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   value: _isEnable,
                   onChanged: (bool value) {
                     _isEnable = value;
-                    setState(() {});
+                    // setState(() {});
                   },
                 ),
               ],
             ),
 
-            ListenableBuilder(
-              listenable: counterController,
-              builder: (context, child) {
+            Consumer<CounterController>(
+              builder: (context, counter, child) {
                 return Text(
-                  '${counterController.count}',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  '${counter.count}',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                 );
               },
             ),
