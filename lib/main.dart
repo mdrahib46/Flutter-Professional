@@ -27,11 +27,15 @@ class _FlutterForProfessionalState extends State<FlutterForProfessional> {
   //   setState(() {});
   // }
 
+  final CounterController counterController = CounterController();
+
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => CounterController(),
-
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: counterController),
+        ChangeNotifierProvider(create: (_) => CounterController(), lazy: false),
+      ],
       child: MaterialApp(home: HomeScreen()),
     );
   }
